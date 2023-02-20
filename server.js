@@ -1,38 +1,38 @@
 const assert = require("assert")
 
 const newFolderName = function (folders) {
-  assert(Array.isArray(folders), 'Error, Expected an array of folder names')
+  let nthFolder = 0
 
-  nthFolder = 0;
-
-  for (i = 0; i < folders.length; i++) {
-    if (folders.at(i) == 'New Folder' || folders.at(i) == 'New Folder(' + nthFolder + ')' || folders.at(i) == 'New Folder ' || folders.at(i) == 'New Folder (' + nthFolder + ')') {
-      console.log(folders.at(i))
+  for (let i = 0; i < folders.length; i++) {
+    console.log(folders.at(i))
+    if (folders.at(i) === 'New Folder' || folders.at(i) === 'New Folder ') {
+      nthFolder++
+    } else if (folders.at(i) === 'New Folder (' + nthFolder + ')') {
       nthFolder++
     }
   }
   console.log(folders.length)
-  if (nthFolder == 0) {
+  if (nthFolder === 0) {
     folders.push('New Folder')
     console.log(folders.length)
-  } else if (nthFolder == folders.length) {
+  } else if (nthFolder === folders.length) {
     nthFolder++
-    folders.push('New Folder ('+nthFolder+')')
+    folders.push('New Folder (' + nthFolder + ')')
     console.log(folders.length)
   } else {
-    folders.push('New Folder ('+nthFolder+')')
+    folders.push('New Folder (' + nthFolder + ')')
+    console.log(folders.length)
   }
-  for (i = 0; i < folders.length; i++) {
-    console.log(folders.at(i))
+  if (folders.length === 0) {
+    folders.push('New Folder')
   }
+  console.log(folders.length)
 }
 
-folderz = [
-  'New Folder (4)',
-  'New Folder (2)',
-  'New Folder',
-  'New Folder (3)',
-  'New Folder (6)'
-]
+newFolderName([])
+newFolderName(['a folder', 'new folder'])
+newFolderName(['New Folder (1)', 'New Folder (2)', 'New Folder (3)'])
+newFolderName(['Documents', 'New Folder (5)', 'New Folder'])
+newFolderName(['New Folder (2)', 'New Folder'])
 
-newFolderName(folderz)
+module.exports = { newFolderName }
